@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TT3NBT60D0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-TT3NBT60D0');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Doer Global — Empowering early-stage entrepreneurs with investor-ready pitch decks, sustainable business plans, and expert mentorship to raise their first cheque." />
+    <meta name="keywords" content="startup, entrepreneurship, pitch deck, business plan, mentorship, incubation, Doer Global" />
+    <meta property="og:title" content="Doer Global — Raise Your First Cheque" />
+    <meta property="og:description" content="We help early-stage entrepreneurs transform ideas into investor-ready ventures through structured guidance and hands-on mentorship." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://doer.global/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Doer Global — Raise Your First Cheque" />
+    <meta name="twitter:description" content="Empowering early-stage entrepreneurs with tools, mentorship, and resources." />
+    
+    <title>Doer Global — Raise Your First Cheque</title>
+    <link rel="icon" type="image/png" href="./logo.png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/base.css" />
+    <link rel="stylesheet" href="./src/css/components.css" />
+    <link rel="stylesheet" href="./src/css/sections.css" />
+    <link rel="stylesheet" href="./src/css/animations.css" />
+  </head>
+
+  <body>
+    <!-- ============================================ -->
+    <!-- NAVBAR                                       -->
+    <!-- ============================================ -->
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar__inner container">
+        <a href="#home" class="navbar__logo" aria-label="Doer Global Home">
+          <img src="./logo.png" alt="Doer Global" width="36" height="36" />
+          <span>Doer</span>
+        </a>
+
+        <ul class="navbar__links" id="nav-links">
+          <!-- Populated dynamically by navbar.js -->
+        </ul>
+
+        <div class="navbar__actions">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYXza_gDihHxcYEMmX20E6whOIrAiZndqy5zf7ceNZK7xnFw/viewform" class="btn btn-primary navbar__cta" id="nav-cta" target="_blank" rel="noopener noreferrer">
+            Ideation Challenge
+          </a>
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Overlay -->
+      <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <ul class="mobile-nav__links" id="mobile-nav-links">
+          <!-- Populated dynamically by navbar.js -->
+        </ul>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYXza_gDihHxcYEMmX20E6whOIrAiZndqy5zf7ceNZK7xnFw/viewform" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Ideation Challenge</a>
+      </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION                                 -->
+    <!-- ============================================ -->
+    <section id="home" class="section-padding hero">
+      <div class="hero__grid container">
+        <div class="hero__content">
+          <span class="badge hero__badge animate-on-scroll" data-animate="fade-up">#1 Entrepreneurship Development Service</span>
+          <h1 class="hero__title animate-on-scroll" data-animate="fade-up">
+            Raise Your First Cheque with
+            <span class="gradient-text">Doer Global</span>
+          </h1>
+          <div class="hero__typewriter-wrap animate-on-scroll" data-animate="fade-up">
+            <span class="hero__typewriter-prefix">We build </span>
+            <span class="hero__typewriter" id="typewriter-text"></span>
+          </div>
+          <p class="hero__description animate-on-scroll" data-animate="fade-up">
+            We help early-stage entrepreneurs transform ideas into investor-ready ventures through structured guidance, professional deliverables, and hands-on mentorship.
+          </p>
+          <form class="hero__form animate-on-scroll" data-animate="fade-up" id="hero-form">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              id="hero-email" 
+              aria-label="Email address"
+              required 
+            />
+            <button type="submit" class="btn btn-primary">Get Started</button>
+          </form>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYXza_gDihHxcYEMmX20E6whOIrAiZndqy5zf7ceNZK7xnFw/viewform" class="hero__ideation-link animate-on-scroll" data-animate="fade-up" target="_blank" rel="noopener noreferrer">
+            Looking for the Doer Ideation Challenge? Click here to register →
+          </a>
+        </div>
+        <div class="hero__visual">
+          <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- IMPACT METRICS                               -->
+    <!-- ============================================ -->
+    <section id="metrics" class="section-padding">
+      <div class="container">
+        <div class="metrics__header animate-on-scroll" data-animate="fade-up">
+          <h2>Our Impact in Numbers</h2>
+          <p class="metrics__subtitle">Measurable results that speak for themselves</p>
+        </div>
+        <div class="metrics__grid" id="metrics-grid">
+          <!-- Populated dynamically by counters.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SERVICES                                     -->
+    <!-- ============================================ -->
+    <section id="services" class="section-padding">
+      <div class="container">
+        <div class="services__header animate-on-scroll" data-animate="fade-up">
+          <h2>What We Do</h2>
+          <p class="services__subtitle">End-to-end support for your entrepreneurial journey</p>
+        </div>
+        <div class="services__layout" id="services-container">
+          <!-- Tabs sidebar + content panel populated by services.js -->
+        </div>
+        <div class="services__accordion" id="services-accordion">
+          <!-- Mobile accordion populated by services.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- STORIES / INSIGHTS                           -->
+    <!-- ============================================ -->
+    <section id="stories" class="section-padding">
+      <div class="container">
+        <div class="stories__header animate-on-scroll" data-animate="fade-up">
+          <h2>Founder Stories</h2>
+          <p class="stories__subtitle">Real journeys, real impact — hear from the founders we've worked with</p>
+        </div>
+        <div class="stories__carousel">
+          <div class="stories__track" id="stories-track">
+            <!-- Story cards populated by stories.js -->
+          </div>
+        </div>
+        <div class="stories__nav" id="stories-nav">
+          <button class="btn btn-icon stories__arrow stories__arrow--prev" id="stories-prev" aria-label="Previous story">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="stories__dots" id="stories-dots">
+            <!-- Dots populated by stories.js -->
+          </div>
+          <button class="btn btn-icon stories__arrow stories__arrow--next" id="stories-next" aria-label="Next story">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Story Modal -->
+      <div class="modal" id="story-modal" role="dialog" aria-modal="true" aria-labelledby="story-modal-title">
+        <div class="modal__overlay" id="story-modal-overlay"></div>
+        <div class="modal__content">
+          <button class="modal__close btn btn-icon" id="story-modal-close" aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div class="modal__avatar" id="story-modal-avatar"></div>
+          <h3 id="story-modal-title" class="modal__title"></h3>
+          <p id="story-modal-startup" class="modal__subtitle"></p>
+          <p id="story-modal-body" class="modal__body"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TEAM                                         -->
+    <!-- ============================================ -->
+    <section id="team" class="section-padding">
+      <div class="container">
+        <div class="team__header animate-on-scroll" data-animate="fade-up">
+          <h2>Meet the Team</h2>
+          <p class="team__subtitle">The people behind the mission</p>
+        </div>
+        <div class="team__grid" id="team-grid">
+          <!-- Team cards populated by team.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FAQ                                          -->
+    <!-- ============================================ -->
+    <section id="faq" class="section-padding">
+      <div class="container">
+        <div class="faq__header animate-on-scroll" data-animate="fade-up">
+          <h2>Frequently Asked Questions</h2>
+          <p class="faq__subtitle">Everything you need to know about working with us</p>
+        </div>
+        <div class="faq__container" id="faq-container">
+          <!-- FAQ accordion populated by faq.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CONTACT                                      -->
+    <!-- ============================================ -->
+    <section id="contact" class="section-padding">
+      <div class="container">
+        <div class="contact__grid">
+          <div class="contact__form-side">
+            <div class="contact__header animate-on-scroll" data-animate="fade-up">
+              <h2>Let's Build Something Great</h2>
+              <p class="contact__subtitle">Have a startup idea? Ready to take the next step? Reach out and let's start a conversation.</p>
+            </div>
+            <form class="contact__form" id="contact-form">
+              <!-- Form fields populated by contact.js -->
+            </form>
+          </div>
+          <div class="contact__visual animate-on-scroll" data-animate="scale-in">
+            <div class="contact__orb"></div>
+            <div class="contact__orb contact__orb--secondary"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer id="footer">
+      <div class="container">
+        <div class="footer__grid" id="footer-content">
+          <!-- Footer content populated by main.js -->
+        </div>
+        <div class="footer__bottom">
+          <p>&copy; <span id="footer-year"></span> Doer Global. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- CHATBOT WIDGET                               -->
+    <!-- ============================================ -->
+    <div id="chatbot">
+      <!-- Floating Action Button -->
+      <button class="chatbot-fab" id="chatbot-fab" aria-label="Open support chat" aria-expanded="false" aria-controls="chatbot-window">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+
+      <!-- Chat Window -->
+      <div class="chatbot-window" id="chatbot-window" role="dialog" aria-label="Doer Support Chat">
+        <div class="chat-header">
+          <div class="chat-header__info">
+            <div class="chat-header__avatar">D</div>
+            <div>
+              <h4 class="chat-header__title">Doer Support</h4>
+              <span class="chat-header__status">Online</span>
+            </div>
+          </div>
+          <button class="chat-header__close" id="chatbot-close" aria-label="Close chat">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="chat-messages" id="chatbot-messages">
+          <!-- Populated dynamically by chatbot.js -->
+        </div>
+
+        <div class="chat-suggestions" id="chatbot-suggestions">
+          <!-- Populated dynamically by chatbot.js -->
+        </div>
+
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="chatbot-input" placeholder="Send a message..." aria-label="Type your message" />
+          <button class="chat-send-btn" id="chatbot-send" aria-label="Send message">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main JS Entry Point -->
+    <script type="module" src="./src/js/main.js"></script>
+  </body>
+</html>
