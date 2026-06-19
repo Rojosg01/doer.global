@@ -25,11 +25,13 @@ export function init() {
   if (!grid) return;
 
   grid.innerHTML = siteData.team
-    .map((member, i) => `
+    .map((member, i) => {
+      const photoUrl = member.photo ? `${import.meta.env.BASE_URL}${member.photo.replace(/^\.\//, '')}` : null;
+      return `
       <div class="team-card animate-on-scroll stagger-${Math.min(i + 1, 6)}" data-animate="fade-up">
         <div class="team-card__image">
-          ${member.photo
-            ? `<img class="team-card__photo" src="${member.photo}" alt="${member.name}" loading="lazy" />`
+          ${photoUrl
+            ? `<img class="team-card__photo" src="${photoUrl}" alt="${member.name}" loading="lazy" />`
             : `<div class="team-card__avatar" style="background: ${AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length]}">${getInitials(member.name)}</div>`
           }
         </div>
@@ -51,7 +53,8 @@ export function init() {
           </div>
         </div>
       </div>
-    `)
+      `;
+    })
     .join('');
 
   // Mobile: tap to toggle overlay (since hover doesn't work on touch)

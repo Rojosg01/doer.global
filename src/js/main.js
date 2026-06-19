@@ -41,7 +41,7 @@ function renderFooter() {
   footerGrid.innerHTML = `
     <div class="footer__brand">
       <div class="footer__logo">
-        <img src="./logo.png" alt="Doer Global" width="32" height="32" />
+        <img src="${import.meta.env.BASE_URL}logo.png" alt="Doer Global" width="32" height="32" />
         <span style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Doer Global</span>
       </div>
       <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.95rem;">${description}</p>
