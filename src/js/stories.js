@@ -2,6 +2,7 @@
  * stories.js — Horizontal carousel with modal, dots, and auto-play
  */
 import { siteData } from './data.js';
+import { initSpotlight } from './animations.js';
 
 const AVATAR_GRADIENTS = [
   'linear-gradient(135deg, #3b82f6, #8b5cf6)',
@@ -17,6 +18,11 @@ export function init() {
   renderStoryCards();
   initCarousel();
   initModal();
+  
+  const track = document.getElementById('stories-track');
+  if (track) {
+    initSpotlight(track);
+  }
 }
 
 function getInitials(name) {
@@ -29,7 +35,7 @@ function renderStoryCards() {
 
   track.innerHTML = siteData.stories
     .map((story, i) => `
-      <div class="story-card card" data-story-index="${i}">
+      <div class="story-card card spotlight-card" data-story-index="${i}">
         <div class="story-card__avatar" style="background: ${AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length]}">
           ${getInitials(story.name)}
         </div>
@@ -42,6 +48,17 @@ function renderStoryCards() {
     .join('');
 }
 
+function getSlideCount(track, cards) {
+  if (!track || !cards.length) return 0;
+  const trackWidth = track.clientWidth;
+  const cardWidth = cards[0].offsetWidth;
+  const gap = 24;
+  // How many full cards are visible at once
+  const visibleCards = Math.max(1, Math.floor((trackWidth + gap) / (cardWidth + gap)));
+  // Number of distinct slide positions
+  return Math.max(1, cards.length - visibleCards + 1);
+}
+
 function initCarousel() {
   const track = document.getElementById('stories-track');
   const prevBtn = document.getElementById('stories-prev');
@@ -50,9 +67,9 @@ function initCarousel() {
   if (!track) return;
 
   const cards = track.querySelectorAll('.story-card');
-  const totalSlides = cards.length;
+  const totalSlides = getSlideCount(track, cards);
 
-  // Render dots
+  // Render dots — only as many as there are real scroll positions
   if (dotsContainer) {
     dotsContainer.innerHTML = Array.from({ length: totalSlides })
       .map((_, i) => `<button class="stories__dot ${i === 0 ? 'stories__dot--active' : ''}" data-dot="${i}" aria-label="Go to story ${i + 1}"></button>`)
@@ -80,11 +97,15 @@ function initCarousel() {
 
   // Track scroll position for dot updates
   track.addEventListener('scroll', () => {
-    const scrollLeft = track.scrollLeft;
-    const cardWidth = cards[0]?.offsetWidth + 24; // gap
-    const newSlide = Math.round(scrollLeft / cardWidth);
-    if (newSlide !== currentSlide) {
-      currentSlide = newSlide;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const scrollRatio = track.scrollLeft / maxScroll;
+    const newSlide = Math.round(scrollRatio * (totalSlides - 1));
+    const clampedSlide = Math.max(0, Math.min(totalSlides - 1, newSlide));
+
+    if (clampedSlide !== currentSlide) {
+      currentSlide = clampedSlide;
       updateDots();
     }
   }, { passive: true });
@@ -98,6 +119,22 @@ function initCarousel() {
   track.addEventListener('touchend', () => {
     setTimeout(startAutoPlay, 3000);
   }, { passive: true });
+
+  // Recalculate on resize
+  window.addEventListener('resize', () => {
+    const newTotal = getSlideCount(track, cards);
+    if (dotsContainer && dotsContainer.children.length !== newTotal) {
+      currentSlide = 0;
+      dotsContainer.innerHTML = Array.from({ length: newTotal })
+        .map((_, i) => `<button class="stories__dot ${i === 0 ? 'stories__dot--active' : ''}" data-dot="${i}" aria-label="Go to story ${i + 1}"></button>`)
+        .join('');
+      dotsContainer.querySelectorAll('.stories__dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+          scrollToSlide(parseInt(dot.dataset.dot, 10));
+        });
+      });
+    }
+  });
 }
 
 function scrollToSlide(index) {
@@ -105,11 +142,15 @@ function scrollToSlide(index) {
   if (!track) return;
 
   const cards = track.querySelectorAll('.story-card');
-  if (!cards[index]) return;
+  const totalSlides = getSlideCount(track, cards);
+  const clampedIndex = Math.max(0, Math.min(totalSlides - 1, index));
 
-  const cardWidth = cards[0].offsetWidth + 24;
-  track.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
-  currentSlide = index;
+  // Map slide index to scroll position proportionally
+  const maxScroll = track.scrollWidth - track.clientWidth;
+  const scrollTarget = (clampedIndex / Math.max(1, totalSlides - 1)) * maxScroll;
+
+  track.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+  currentSlide = clampedIndex;
   updateDots();
   restartAutoPlay();
 }
@@ -124,8 +165,10 @@ function updateDots() {
 function startAutoPlay() {
   stopAutoPlay();
   autoPlayTimer = setInterval(() => {
-    const total = siteData.stories.length;
-    const next = (currentSlide + 1) % total;
+    const track = document.getElementById('stories-track');
+    const cards = track ? track.querySelectorAll('.story-card') : [];
+    const totalSlides = getSlideCount(track, cards);
+    const next = (currentSlide + 1) % totalSlides;
     scrollToSlide(next);
   }, 6000);
 }
