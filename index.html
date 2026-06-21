@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="./src/css/animations.css" />
   </head>
 
-  <body>
+  <body class="theme-dark">
     <!-- ============================================ -->
     <!-- NAVBAR                                       -->
     <!-- ============================================ -->
@@ -48,6 +48,17 @@
         </ul>
 
         <div class="navbar__actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle between Dark and Light mode">
+            <!-- Sun Icon (active in dark mode to switch to light) -->
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            <!-- Moon Icon (active in light mode to switch to dark) -->
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </button>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYXza_gDihHxcYEMmX20E6whOIrAiZndqy5zf7ceNZK7xnFw/viewform" class="btn btn-primary navbar__cta" id="nav-cta" target="_blank" rel="noopener noreferrer">
             Ideation Challenge
           </a>

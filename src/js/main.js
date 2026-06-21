@@ -75,9 +75,32 @@ function renderFooter() {
 }
 
 /**
+ * Initialize Light/Dark theme switching
+ */
+function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (!toggleBtn) return;
+
+  // Retrieve current preference or default to dark
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  document.body.className = `theme-${currentTheme}`;
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = document.body.classList.contains('theme-dark');
+    const newTheme = isDark ? 'light' : 'dark';
+    
+    document.body.className = `theme-${newTheme}`;
+    localStorage.setItem('theme', newTheme);
+  });
+}
+
+/**
  * Initialize all modules when DOM is ready
  */
 function init() {
+  // 0. Initialize Light/Dark theme
+  initTheme();
+
   // 1. Render footer (static content)
   renderFooter();
 
@@ -107,3 +130,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+

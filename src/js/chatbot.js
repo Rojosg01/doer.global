@@ -1,6 +1,6 @@
 /**
  * chatbot.js — Premium Custom Chatbot Widget
- * Floating widget at bottom-left corner with quick replies, typing animations,
+ * Floating widget at bottom-right corner with quick replies, typing animations,
  * interactive name collection, and keyword matching.
  */
 
@@ -17,9 +17,6 @@ const KEYWORDS = {
   mentor: 'Our mentorship connects you with weekly syncs, mock selection committees, and strategic insights. Fill out the form at the bottom of the page to connect with a mentor.',
   contact: 'You can reach us through our contact form at the bottom of the page, or by email at <a href="mailto:hello@doer.global" class="chat-link">hello@doer.global</a>. Our team usually responds within 24 hours!',
   email: 'Send us an email at <a href="mailto:hello@doer.global" class="chat-link">hello@doer.global</a> and we will get back to you shortly.',
-  hello: 'Good evening! Welcome to Doer Global Support. What is your name?',
-  hi: 'Good evening! Welcome to Doer Global Support. What is your name?',
-  hey: 'Good evening! Welcome to Doer Global Support. What is your name?'
 };
 
 const QUICK_REPLIES = [
@@ -31,6 +28,13 @@ const QUICK_REPLIES = [
 
 let userName = '';
 let expectingName = false;
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
+}
 
 export function init() {
   const fab = document.getElementById('chatbot-fab');
@@ -90,7 +94,7 @@ export function init() {
   renderSuggestions();
 
   function showWelcomeMessage() {
-    appendBotMessage('Good evening! Welcome to Doer Global Support. What is your name?');
+    appendBotMessage(`${getGreeting()}! Welcome to Doer Global Support. What is your name?`);
     expectingName = true;
   }
 
@@ -177,6 +181,20 @@ export function init() {
         userName = rawText;
         expectingName = false;
         appendBotMessage(`Nice to meet you, ${escapeHTML(userName)}! How can Doer Global assist you with your startup today?`);
+        return;
+      }
+
+      // Check greeting inputs dynamically
+      const greetingWords = ['hello', 'hi', 'hey', 'greetings'];
+      const isGreeting = greetingWords.some(word => text.includes(word));
+
+      if (isGreeting) {
+        if (userName) {
+          appendBotMessage(`${getGreeting()}, ${escapeHTML(userName)}! How can I assist you with your venture today?`);
+        } else {
+          appendBotMessage(`${getGreeting()}! Welcome to Doer Global Support. What is your name?`);
+          expectingName = true;
+        }
         return;
       }
 

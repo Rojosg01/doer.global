@@ -315,12 +315,26 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
+}
+
+.tabs__indicator {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: var(--bg-tertiary);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-base), height var(--transition-base);
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: var(--shadow-glow);
 }
 
 .tab {
   padding: 16px 24px;
   border-radius: var(--radius-md);
-  background: transparent;
+  background: transparent !important;
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
@@ -328,27 +342,35 @@
   font-size: 0.95rem;
   font-family: var(--font-primary);
   font-weight: 500;
-  transition: all var(--transition-base);
+  transition: color var(--transition-base);
   position: relative;
-  border-left: 3px solid transparent;
+  z-index: 1;
 }
 
 .tab:hover {
-  background: var(--bg-tertiary);
   color: var(--text-primary);
 }
 
 .tab--active {
-  background: var(--bg-tertiary);
   color: var(--text-primary);
-  border-left-color: var(--accent-primary);
-  box-shadow: var(--shadow-glow);
 }
 
 .tab__icon {
-  font-size: 1.5rem;
   margin-bottom: 4px;
   display: block;
+}
+
+.tab__icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
+  stroke: currentColor;
+}
+
+.tab--active .tab__icon svg,
+.tab:hover .tab__icon svg {
+  color: var(--accent-primary);
 }
 
 .tab__title {
@@ -362,6 +384,7 @@
   display: block;
   margin-top: 2px;
 }
+
 
 /* --- Accordion --- */
 .accordion__item {
@@ -418,6 +441,16 @@
   transform: rotate(180deg);
   color: var(--accent-primary);
 }
+
+.accordion__header span svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  vertical-align: middle;
+  margin-right: 8px;
+  display: inline-block;
+}
+
 
 /* --- Hamburger --- */
 .hamburger {
@@ -509,7 +542,7 @@
 .chatbot-fab {
   position: fixed;
   bottom: 24px;
-  left: 24px;
+  right: 24px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -545,7 +578,7 @@
 .chatbot-window {
   position: fixed;
   bottom: 96px;
-  left: 24px;
+  right: 24px;
   width: 380px;
   height: 500px;
   max-height: 80vh;
@@ -802,3 +835,81 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
+
+/* --- Theme Toggle --- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-tertiary);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow);
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* When body is dark: show sun icon, hide moon */
+body.theme-dark .theme-toggle__icon--sun {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+body.theme-dark .theme-toggle__icon--moon {
+  transform: translateY(30px) rotate(90deg);
+  opacity: 0;
+}
+
+/* When body is light: show moon icon, hide sun */
+body.theme-light .theme-toggle__icon--sun {
+  transform: translateY(-30px) rotate(-90deg);
+  opacity: 0;
+}
+body.theme-light .theme-toggle__icon--moon {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+
+/* --- Spotlight Cards --- */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--border-accent),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight-card:hover::before {
+  opacity: 0.15;
+}
+body.theme-light .spotlight-card:hover::before {
+  opacity: 0.08;
+}
+

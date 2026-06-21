@@ -2,6 +2,7 @@
  * team.js — Team cards with hover/tap overlay showing quote & social links
  */
 import { siteData } from './data.js';
+import { initSpotlight } from './animations.js';
 
 const AVATAR_GRADIENTS = [
   'linear-gradient(135deg, #6366f1, #8b5cf6)',
@@ -27,13 +28,19 @@ export function init() {
   grid.innerHTML = siteData.team
     .map((member, i) => {
       const photoUrl = member.photo ? `${import.meta.env.BASE_URL}${member.photo.replace(/^\.\//, '')}` : null;
+      const initials = getInitials(member.name);
+      const gradient = AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length];
+      
+      // Fallback display code on image error
+      const imageTag = photoUrl
+        ? `<img class="team-card__photo" src="${photoUrl}" alt="${member.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+           <div class="team-card__avatar" style="display:none; background: ${gradient}">${initials}</div>`
+        : `<div class="team-card__avatar" style="background: ${gradient}">${initials}</div>`;
+
       return `
-      <div class="team-card animate-on-scroll stagger-${Math.min(i + 1, 6)}" data-animate="fade-up">
+      <div class="team-card spotlight-card animate-on-scroll stagger-${Math.min(i + 1, 6)}" data-animate="fade-up">
         <div class="team-card__image">
-          ${photoUrl
-            ? `<img class="team-card__photo" src="${photoUrl}" alt="${member.name}" loading="lazy" />`
-            : `<div class="team-card__avatar" style="background: ${AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length]}">${getInitials(member.name)}</div>`
-          }
+          ${imageTag}
         </div>
         <div class="team-card__info">
           <h4 class="team-card__name">${member.name}</h4>
@@ -56,6 +63,9 @@ export function init() {
       `;
     })
     .join('');
+
+  // Initialize card spotlight effect on the team grid cards
+  initSpotlight(grid);
 
   // Mobile: tap to toggle overlay (since hover doesn't work on touch)
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {

@@ -19,10 +19,30 @@
 let scrollObserver = null;
 
 /**
+ * Initialise mouse spotlight card tracking.
+ * Can be called on the document or dynamic containers.
+ * @param {HTMLElement|Document} container
+ */
+export function initSpotlight(container = document) {
+  container.querySelectorAll('.spotlight-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    }, { passive: true });
+  });
+}
+
+/**
  * Initialise the scroll-animation observer.
  * Call once from main.js after DOM is ready.
  */
 export function init() {
+  // Initialize spotlight cards currently in the DOM
+  initSpotlight();
+
   // Guard against double-init or missing API
   if (scrollObserver) return;
   if (!('IntersectionObserver' in window)) {
